@@ -27,8 +27,7 @@ module.exports = (env, argv) => {
     entry: './src/scripts/index.js',
     output: {
       filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist'),
-      publicPath: '/'
+      path: path.resolve(__dirname, 'dist')
     },
     module: {
       rules: [
@@ -42,6 +41,13 @@ module.exports = (env, argv) => {
             isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
             'css-loader',
             'sass-loader'
+          ]
+        },
+        {
+          test: /\.css$/, // Добавляем поддержку CSS-файлов
+          use: [
+            isDevelopment ? 'style-loader' : MiniCssExtractPlugin.loader,
+            'css-loader'
           ]
         },
         {
@@ -61,7 +67,7 @@ module.exports = (env, argv) => {
         filename: '[name].css'
       }),
       new CopyWebpackPlugin({
-        patterns: [{ from: 'src/public', to: '/' }]
+        patterns: [{ from: 'src/public/images', to: 'images' }]
       })
     ],
     devtool: isDevelopment ? 'source-map' : false,
